@@ -5,5 +5,15 @@
 # Home page
 GET     /                           controllers.Application.index
 
+# Project
+GET     /projects                   controllers.ProjectController.list
+GET     /projects/add               controllers.ProjectController.add
+GET     /projects/:id               controllers.ProjectController.get(id:Long)
+POST    /projects                   controllers.ProjectController.save
+
+# Story
+GET     /stories/add                controllers.StoryController.add
+POST    /stories                    controllers.StoryController.save
+
 # Map static resources from the /public folder to the /assets URL path
 GET     /assets/*file               controllers.Assets.at(path="/public", file)

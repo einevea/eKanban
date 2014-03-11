@@ -1,0 +1,40 @@
+.logolink{
+ width: 56px;
+ height: 56px;
+}
+
+.twitterbird {
+ display:block;
+ background:transparent url('/assets/images/logos/twitter-bird2.png') center top no-repeat;
+}
+
+.twitterbird:hover {
+   background-image: url('/assets/images/logos/twitter-bird2-square.png');
+}
+
+.facebook {
+ display:block;
+ background:transparent url('/assets/images/logos/facebook-logo.png') center top no-repeat;
+}
+
+.facebook:hover {
+   background-image: url('/assets/images/logos/facebook-logo-square.png');
+}
+
+.googleplus {
+ display:block;
+ background:transparent url('/assets/images/logos/google-g-logo.png') center top no-repeat;
+}
+
+.googleplus:hover {
+   background-image: url('/assets/images/logos/google-logo-square.png');
+}
+
+.linkedin {
+ display:block;
+ background:transparent url('/assets/images/logos/linkedin-logo.png') center top no-repeat;
+}
+
+.linkedin:hover {
+   background-image: url('/assets/images/logos/linkedin-logo-square2.png');
+}

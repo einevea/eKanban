@@ -1,0 +1,49 @@
+@(projectForm: Form[model.Project])(implicit flash: Flash, lang: Lang)
+@import helper._
+
+<div class="large-12 columns">
+@form(routes.ProjectController.save(), 'class->"custom customForm") {
+<div class="row collapse">
+    <div class="large-6 small-4 columns">
+        @helper.input(projectForm("code")) {(id, name, value, args) =>
+        @if(value.equals("")){
+            <input type="text" name="code" placeholder="@Messages("tagPlaceholder")" >
+        }else{
+            <input type="text" name="code" value="@value">
+        }
+        }
+    </div>
+    <div class="large-6 small-4 columns">
+        @helper.input(projectForm("name")) {(id, name, value, args) =>
+            @if(value.equals("")){
+                <input type="text" name="name" placeholder="@Messages("tagPlaceholder")" >
+            }else{
+                <input type="text" name="name" value="@value">
+            }
+        }
+    </div>
+    <div class="large-6 small-4 columns">
+        @helper.input(projectForm("description")) {(id, name, value, args) =>
+        @if(value.equals("")){
+        <input type="text" name="description" placeholder="@Messages("tagPlaceholder")" >
+        }else{
+        <input type="text" name="description" value="@value">
+        }
+        }
+    </div>
+    <div class="large-6 small-4 columns">
+        @helper.input(projectForm("logoURL")) {(id, name, value, args) =>
+        @if(value.equals("")){
+        <input type="text" name="logoURL" placeholder="@Messages("tagPlaceholder")" >
+        }else{
+        <input type="text" name="logoURL" value="@value">
+        }
+        }
+    </div>
+    <div class="large-1 small-1 columns">
+        <button class="small button">@Messages("create")</button>
+    </div>
+</div>
+}
+</div>
+<a class="close-reveal-modal">&#215;</a>
