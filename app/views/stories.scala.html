@@ -1,18 +1,29 @@
 @(message: String, projects: List[model.Project], project: model.Project)
 @import helper._
 
-@main("eKanban", projects) {
+@main("eKanban", projects, Some(project)) {
 <!-- Main Feed -->
 <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
 <div class="large-12 columns">
         <!-- Feed Entry -->
         <div class="row">
             <hr />
-            <div class="large-2 columns small-3"><a href="@routes.ProjectController.get(project.id)"><img src="http://placehold.it/80x80&text=[img]" /></a></div>
+            <div class="large-2 columns small-3"><a href="@routes.ProjectController.get(project.id)"><img src="@project.logoURL" /></a></div>
             <div class="large-10 columns">
                 <p><strong><a href="@routes.ProjectController.get(project.id)">[@project.code]</a> @project.name:</strong> @project.description.</p>
             </div>
         </div>
+
+        @for(story <- project.stories){
+
+        <div class="row">
+            <hr />
+            <div class="large-12 columns">
+                <p><strong><a href="@routes.StoryController.get(project.id, story.id)">@story.title</a>:</strong> @story.description.</p>
+            </div>
+        </div>
         <!-- End Feed Entry -->
+
+        }
 </div>
 }

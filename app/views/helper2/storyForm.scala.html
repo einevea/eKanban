@@ -1,9 +1,10 @@
-@(storyForm: Form[model.Story])(implicit flash: Flash, lang: Lang)
+@(storyForm: Form[model.Story], projectId: Long)(implicit flash: Flash, lang: Lang)
 @import helper._
 
 <div class="large-12 columns">
-@form(routes.StoryController.save(), 'class->"custom customForm") {
+@form(routes.StoryController.save(projectId), 'class->"custom customForm") {
 <div class="row collapse">
+    <input type="hidden" name="projectId" value='@projectId'>
     <div class="large-6 small-4 columns">
         @helper.input(storyForm("title")) {(id, name, value, args) =>
         @if(value.equals("")){
@@ -14,12 +15,12 @@
         }
     </div>
     <div class="large-6 small-4 columns">
-        @helper.input(storyForm("phase")) {(id, name, value, args) =>
-            @if(value.equals("")){
-                <input type="text" name="phase" placeholder="@Messages("tagPlaceholder")" >
-            }else{
-                <input type="text" name="phase" value="@value">
-            }
+        @helper.input(storyForm("description")) {(id, name, value, args) =>
+        @if(value.equals("")){
+        <input type="text" name="description" placeholder="@Messages("tagPlaceholder")" >
+        }else{
+        <input type="text" name="description" value="@value">
+        }
         }
     </div>
     <div class="large-1 small-1 columns">

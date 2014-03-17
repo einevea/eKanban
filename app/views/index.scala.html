@@ -1,7 +1,7 @@
 @(message: String, projects: List[model.Project])
 @import helper._
 
-@main("eKanban", projects) {
+@main("eKanban", projects, None) {
 <!-- Main Feed -->
 <!-- This has been source ordered to come first in the markup (and on small devices) but to be to the right of the nav on larger screens -->
 <div class="large-12 columns">
@@ -10,7 +10,7 @@
         <!-- Feed Entry -->
         <div class="row">
             <hr />
-            <div class="large-1 columns small-3"><a href="@routes.ProjectController.get(project.id)"><img src="http://placehold.it/80x80&text=[img]" /></a></div>
+            <div class="large-1 columns small-3"><a href="@routes.ProjectController.get(project.id)"><img src="@project.logoURL" /></a></div>
             <div class="large-11 columns">
                 <p><strong><a href="@routes.ProjectController.get(project.id)">[@project.code]</a> @project.name:</strong> @project.description.</p>
             </div>

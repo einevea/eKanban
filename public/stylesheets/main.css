@@ -38,3 +38,40 @@
 .linkedin:hover {
    background-image: url('/assets/images/logos/linkedin-logo-square2.png');
 }
+
+.row.full-width {
+     width: 100%;
+     max-width: 100%;
+}
+
+div.row.note{
+  list-style:none;
+  text-decoration:none;
+    color:#000;
+    background:#ffc;
+    display:block;
+    height:3.55em;
+    width: auto;
+    padding:0.75em;
+    margin:1em;
+    font-size:140%;
+    font-weight:bold;
+    font-family:"Reenie Beanie",arial,sans-serif;
+    -moz-box-shadow:5px 5px 7px rgba(33,33,33,1);
+    -webkit-box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    box-shadow: 5px 5px 7px rgba(33,33,33,.7);
+    -moz-transition:-moz-transform .15s linear;
+    -o-transition:-o-transform .15s linear;
+    -webkit-transition:-webkit-transform .15s linear;
+}
+
+div.row.note:hover, div.row.note:focus{
+  -moz-box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-box-shadow: 10px 10px 7px rgba(0,0,0,.7);
+  box-shadow:10px 10px 7px rgba(0,0,0,.7);
+  -webkit-transform: scale(1.125);
+  -moz-transform: scale(1.125);
+  -o-transform: scale(1.125);
+  position:relative;
+  z-index:5;
+}

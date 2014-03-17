@@ -4,8 +4,9 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.templates.Html
-import model.{Project, ProjectDAO, Story}
+import model.{PhaseDAO, Project, ProjectDAO, Story}
 import play.api.data.Forms._
+import org.apache.commons.codec.digest.DigestUtils
 
 object ProjectController extends Controller {
 
@@ -19,8 +20,14 @@ object ProjectController extends Controller {
         Application.handleError(formWithErrors, views.html.helper2.projectForm(formWithErrors))
       },
       project =>{
-        ProjectDAO.create(project)
-        Application.handleSuccess(f"Project: $project created")
+        val newProject = ProjectDAO.create(project)
+        val phases = PhaseDAO.readAll()
+        var index = 1
+        for(phase <- phases){
+          PhaseDAO.createInProjectAtIndex(newProject.get.id, phase, index)
+          index += 1
+        }
+        Application.handleSuccess(f"Project: $newProject created")
       }
     )
   }
@@ -38,7 +45,21 @@ object ProjectController extends Controller {
     }else{
       BadRequest
     }
+  }
 
+  def getStoryboard(id: Long) = Action { implicit request =>
+    val projects = ProjectDAO.readAll()
+    val project = ProjectDAO.read(id)
+    if(project.isDefined){
+      Ok(views.html.storyboard("Your new application is ready.", projects, project.get))
+    }else{
+      BadRequest
+    }
+  }
+
+  private def createProjectIdenticon(name: String) = {
+    val hash = DigestUtils.md5Hex(name);
+    Some(f"http://www.gravatar.com/avatar/$hash?r=PG&s=256&default=identicon");
   }
 
   val projectForm = Form[Project](
@@ -48,7 +69,7 @@ object ProjectController extends Controller {
       "description" -> nonEmptyText,
       "logoURL" -> text
     )
-      ((code, name, description, logoURL) => Project(-1, code, name, description, if(logoURL.isEmpty) None else Some(logoURL)))
+      ((code, name, description, logoURL) => Project(-1, code, name, description, if(logoURL.isEmpty) createProjectIdenticon(code) else Some(logoURL)))
       ((project: Project) => Option(project.code, project.name, project.description, project.logoURL.getOrElse("")))
   )
 }

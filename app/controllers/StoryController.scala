@@ -4,32 +4,53 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.templates.Html
-import model.{Story, StoryDAO}
+import model.{ProjectDAO, Story, StoryDAO}
 import play.api.data.Forms._
 
 object StoryController extends Controller {
 
-  def add = Action { implicit request =>
-    Ok(views.html.helper2.storyForm(storyForm))
+  def add(projectId: Long) = Action { implicit request =>
+    Ok(views.html.helper2.storyForm(storyForm, projectId))
   }
 
-  def save = Action { implicit request =>
+  def save(projectId: Long) = Action { implicit request =>
     storyForm.bindFromRequest.fold(
-      formWithErrors => Application.handleError(formWithErrors, views.html.helper2.storyForm(formWithErrors)),
+      formWithErrors => Application.handleError(formWithErrors, views.html.helper2.storyForm(formWithErrors, projectId)),
       story =>{
-        StoryDAO.create(story)
+        StoryDAO.create(projectId, story)
         Application.handleSuccess(f"Story: $story created")
       }
     )
   }
 
+  def list(projectId: Long) = Action { implicit request =>
+    val projects = ProjectDAO.readAll()
+    val projectOpt = ProjectDAO.read(projectId)
+    if(projectOpt.isDefined){
+      Ok(views.html.stories("Your new application is ready.", projects, projectOpt.get))
+    }else{
+      BadRequest
+    }
+  }
+
+  def get(projectId: Long, id: Long) = Action { implicit request =>
+    val projects = ProjectDAO.readAll()
+    val projectOpt = ProjectDAO.read(projectId)
+    if(projectOpt.isDefined){
+      Ok(views.html.stories("Your new application is ready.", projects, projectOpt.get))
+    }else{
+      BadRequest
+    }
+  }
+
   val storyForm = Form[Story](
     mapping(
-      "id" -> longNumber,
+      "projectId" -> longNumber,
       "title" -> nonEmptyText,
-      "phase" -> text
+      "description" -> nonEmptyText
+
     )
-      ((id, title, phase) => Story(id, title, phase))
-      ((story: Story) => Option(story.id, story.title, story.phase))
+      ((projectId, title, description) => Story(-1, projectId, title, description))
+      ((story: Story) => Option(story.projectId, story.title, story.description))
   )
 }

@@ -1,4 +1,4 @@
-@(title: String, projects: List[model.Project])(content: Html)
+@(title: String, projects: List[model.Project], currentProject: Option[model.Project])(content: Html)
 @head(title){
 <!-- Header and Nav -->
 <nav class="top-bar" data-topbar>
@@ -26,26 +26,27 @@
                     }
                 </ul>
             </li>
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a class="active" href="#">@Messages("stories")</a>
-                <ul class="dropdown">
-                    <li><label>@Messages("stories")</label></li>
-                    <li><a href="@routes.StoryController.add" data-reveal-ajax="true" data-reveal-id="formModal" data-reveal>@Messages("add")</a></li>
-                    <li><a href="#" class="">@Messages("viewAll")</a></li>
-                </ul>
-            </li>
-            <li class="divider"></li>
-            <li class="has-dropdown">
-                <a href="#">@Messages("phases")</a>
-                <ul class="dropdown">
-                    <li><label>@Messages("phases")</label></li>
-                    <li><a href="#">@Messages("add")</a></li>
-                    <li><a href="#">@Messages("viewAll")</a></li>
-                </ul>
-            </li>
-            <li class="divider"></li>
-
+            @if(currentProject.isDefined){
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a class="active" href="#">@Messages("stories")</a>
+                    <ul class="dropdown">
+                        <li><label>@Messages("stories")</label></li>
+                        <li><a href="@routes.StoryController.add(currentProject.get.id)" data-reveal-ajax="true" data-reveal-id="formModal" data-reveal>@Messages("add")</a></li>
+                        <li><a href="@routes.ProjectController.get(currentProject.get.id)" class="">@Messages("viewAll")</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+                <li class="has-dropdown">
+                    <a href="#">@Messages("board")</a>
+                    <ul class="dropdown">
+                        <li><label>@Messages("board")</label></li>
+                        <li><a href="#">@Messages("add phase")</a></li>
+                        <li><a href="@routes.ProjectController.getStoryboard(currentProject.get.id)">@Messages("view")</a></li>
+                    </ul>
+                </li>
+                <li class="divider"></li>
+            }
         </ul>
 
         <!-- Right Nav Section -->
