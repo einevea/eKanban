@@ -3,31 +3,32 @@
 # ~~~~
 
 # Home page
-GET     /                                           controllers.Application.index
+GET     /                                                                                   controllers.Application.index
 
 # Phases
-GET     /phases.json                                controllers.PhasesController.listJson
+GET     /phases.json                                                                        controllers.PhasesController.listJson
 
 # Project
-GET     /projects                                   controllers.ProjectController.list
-GET     /projects/add                               controllers.ProjectController.add
-GET     /projects/:id                               controllers.ProjectController.get(id:Long)
-POST    /projects                                   controllers.ProjectController.save
+GET     /projects                                                                           controllers.ProjectController.list
+GET     /projects/add                                                                       controllers.ProjectController.add
+GET     /projects/:id                                                                       controllers.ProjectController.get(id:Long)
+POST    /projects                                                                           controllers.ProjectController.save
 
 # Project.stories
-GET     /projects/:projectId/stories                controllers.StoryController.list(projectId: Long)
-GET     /projects/:projectId/stories/add            controllers.StoryController.add(projectId: Long)
-GET     /projects/:projectId/stories/:id            controllers.StoryController.get(projectId: Long, id:Long)
-POST    /projects/:projectId/stories                controllers.StoryController.save(projectId: Long)
+GET     /projects/:projectId/stories                                                        controllers.StoryController.list(projectId: Long)
+GET     /projects/:projectId/stories/add                                                    controllers.StoryController.add(projectId: Long)
+GET     /projects/:projectId/stories/:id                                                    controllers.StoryController.get(projectId: Long, id:Long)
+GET     /projects/:projectId/stories/:storyId/phases/:id/put                                controllers.StoryController.changePhase(projectId: Long, storyId: Long, id:Long)
+POST    /projects/:projectId/stories                                                        controllers.StoryController.save(projectId: Long)
 
 # Project.storyboard
-GET     /projects/:projectId/storyboard             controllers.ProjectController.getStoryboard(projectId: Long)
+GET     /projects/:projectId/storyboard                                                     controllers.ProjectController.getStoryboard(projectId: Long)
 
 # Project.phases
-GET     /projects/:projectId/phases                controllers.PhasesController.list(projectId: Long)
-# GET     /projects/:projectId/phases/add            controllers.PhasesController.add(projectId: Long)
-# GET     /projects/:projectId/phases/:id            controllers.PhasesController.get(projectId: Long, id:Long)
-# POST    /projects/:projectId/phases                controllers.PhasesController.save(projectId: Long)
+GET     /projects/:projectId/phases                                                         controllers.PhasesController.list(projectId: Long)
+# GET     /projects/:projectId/phases/add                                                   controllers.PhasesController.add(projectId: Long)
+# GET     /projects/:projectId/phases/:id                                                   controllers.PhasesController.get(projectId: Long, id:Long)
+# POST    /projects/:projectId/phases                                                       controllers.PhasesController.save(projectId: Long)
 
 # Map static resources from the /public folder to the /assets URL path
-GET     /assets/*file                               controllers.Assets.at(path="/public", file)
+GET     /assets/*file                                                                       controllers.Assets.at(path="/public", file)

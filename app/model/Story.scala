@@ -47,4 +47,16 @@ object StoryDAO{
         .as(simpleParser *)
     }
   }
+
+  def updatePhase(projectId: Long, storyId:Long, phaseId: Long) = {
+    DB.withConnection{implicit c =>
+      SQL(
+        """
+          update stories set phase_id = {phase_id}
+          where project_id = {project_id} and id = {id}
+        """)
+        .on("project_id" -> projectId, "phase_id" -> phaseId, "id" -> storyId)
+        .executeUpdate()
+    }
+  }
 }

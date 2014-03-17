@@ -43,6 +43,11 @@ object StoryController extends Controller {
     }
   }
 
+  def changePhase(projectId: Long, storyId: Long, phaseId:Long) = Action { implicit request =>
+    StoryDAO.updatePhase(projectId, storyId, phaseId)
+    Ok
+  }
+
   val storyForm = Form[Story](
     mapping(
       "projectId" -> longNumber,
