@@ -7,8 +7,9 @@
     <div class="large-12 columns">
         <div class="row">
             @for(phase <- project.phases){
-            <div id="phase_@phase.id" class="large-2 small-6 columns" ondrop="drop(event, @project.id, @phase.id)" ondragover="allowDrop(event)">
-                <h4>@phase.name</h4><hr>
+            <div id="phase_@phase.id" class="large-2 small-6 columns equalheight" ondrop="drop(event, @project.id, @phase.id)" ondragover="allowDrop(event)">
+
+                <hr><h4>@phase.name</h4><hr>
                 @for(story <- project.storiesByPhase(phase)){
                 <div class="row note" id="story_@story.id" draggable="true" ondragstart="drag(event, @story.id)">
                     <div class="large-12 columns">

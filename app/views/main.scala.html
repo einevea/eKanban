@@ -15,18 +15,30 @@
     <section class="top-bar-section">
         <!-- Left Nav Section -->
         <ul class="left">
-            <li class="has-dropdown">
-                <a class="active" href="#">@Messages("project")</a>
-                <ul class="dropdown">
-                    <li><a href="@routes.ProjectController.add" data-reveal-ajax="true" data-reveal-id="formModal" data-reveal>@Messages("create")</a></li>
-                    <li><a href="@routes.ProjectController.list" class="">@Messages("viewAll")</a></li>
-                    <li><label>@Messages("project")</label></li>
-                    @for(project <- projects){
+            @if(!currentProject.isDefined){
+                <li class="has-dropdown">
+                    <a class="active" href="#">@Messages("project")</a>
+                    <ul class="dropdown">
+                        <li><a href="@routes.ProjectController.add" data-reveal-ajax="true" data-reveal-id="formModal" data-reveal>@Messages("create")</a></li>
+                        <li><a href="@routes.ProjectController.list" class="">@Messages("viewAll")</a></li>
+                        <li><label>@Messages("project")</label></li>
+                        @for(project <- projects){
+                            <li><a href="@routes.ProjectController.get(project.id)" class="">@project.code</a></li>
+                        }
+                    </ul>
+                </li>
+            }else{
+                <li class="has-dropdown">
+                    <a class="active" href="#"><img width="30" height="30" src="@currentProject.get.logoURL" /> @currentProject.get.code</a>
+                    <ul class="dropdown">
+                        <li><a href="@routes.ProjectController.add" data-reveal-ajax="true" data-reveal-id="formModal" data-reveal>@Messages("create")</a></li>
+                        <li><a href="@routes.ProjectController.list" class="">@Messages("viewAll")</a></li>
+                        <li><label>@Messages("project")</label></li>
+                        @for(project <- projects){
                         <li><a href="@routes.ProjectController.get(project.id)" class="">@project.code</a></li>
-                    }
-                </ul>
-            </li>
-            @if(currentProject.isDefined){
+                        }
+                    </ul>
+                </li>
                 <li class="divider"></li>
                 <li class="has-dropdown">
                     <a class="active" href="#">@Messages("stories")</a>
@@ -37,13 +49,8 @@
                     </ul>
                 </li>
                 <li class="divider"></li>
-                <li class="has-dropdown">
-                    <a href="#">@Messages("board")</a>
-                    <ul class="dropdown">
-                        <li><label>@Messages("board")</label></li>
-                        <li><a href="#">@Messages("add phase")</a></li>
-                        <li><a href="@routes.ProjectController.getStoryboard(currentProject.get.id)">@Messages("view")</a></li>
-                    </ul>
+                <li>
+                    <a href="@routes.ProjectController.getStoryboard(currentProject.get.id)">@Messages("storyboard")</a>
                 </li>
                 <li class="divider"></li>
             }
