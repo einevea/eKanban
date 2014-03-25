@@ -4,7 +4,7 @@ import play.api._
 import play.api.mvc._
 import play.api.data._
 import play.api.templates.Html
-import model.{ProjectDAO, Story, StoryDAO}
+import model.{StoryType, ProjectDAO, Story, StoryDAO}
 import play.api.data.Forms._
 
 object StoryController extends Controller {
@@ -18,6 +18,7 @@ object StoryController extends Controller {
       formWithErrors => Application.handleError(formWithErrors, views.html.helper2.storyForm(formWithErrors, projectId)),
       story =>{
         StoryDAO.create(projectId, story)
+        printf(StoryType.values.toString())
         Application.handleSuccess(f"Story: $story created")
       }
     )
@@ -52,10 +53,11 @@ object StoryController extends Controller {
     mapping(
       "projectId" -> longNumber,
       "title" -> nonEmptyText,
-      "description" -> nonEmptyText
+      "description" -> nonEmptyText,
+      "storyType" -> nonEmptyText
 
     )
-      ((projectId, title, description) => Story(-1, projectId, title, description))
-      ((story: Story) => Option(story.projectId, story.title, story.description))
+      ((projectId, title, description, storyType) => Story(-1, projectId, title, description, StoryType.usingName(storyType)))
+      ((story: Story) => Option(story.projectId, story.title, story.description, story.storyType.toString))
   )
 }

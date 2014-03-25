@@ -9,14 +9,14 @@ import play.api.Play.current
 /**
  * Created by einevea on 08/03/2014.
  */
-case class Story(val id: Long = -1, val projectId: Long,  val title: String, val description: String, phaseId: Option[Long] = None){
+case class Story(val id: Long = -1, val projectId: Long,  val title: String, val description: String, val storyType: StoryType.StoryType, val phaseId: Option[Long] = None){
   def phase: Option[Phase] = {PhaseDAO.read(phaseId.getOrElse(0))}
 }
 
 object StoryDAO{
   val simpleParser = {
       get[Long]("id") ~ get[Long]("project_id") ~ get[String]("title") ~ get[Long]("phase_id") ~ get[String]("description") map {
-      case id~projectId~title~phaseId~description=> Story(id, projectId, title, description, Some(phaseId))
+      case id~projectId~title~phaseId~description=> Story(id, projectId, title, description, StoryType.bug, Some(phaseId))
     }
   }
 
@@ -31,7 +31,7 @@ object StoryDAO{
         .executeInsert(scalar[Long].single)
     }
 
-    Some(Story(id, projectId, title, description))
+    Some(Story(id, projectId, title, description, StoryType.bug))
   }
 
   def readAll(projectId: Long): List[Story] = {

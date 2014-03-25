@@ -23,6 +23,16 @@
         }
         }
     </div>
+    <div class="large-2 small-2 columns customDropdown">
+        <select id="customDropdown" name="storyType" class="small">
+            @helper.input(storyForm("storyType")) { (id, name, value, args) =>
+                @for(value <- model.StoryType.values) {
+                    <option value="@value.toString">@Messages(value.toString)</option>
+                }
+            }
+
+        </select>
+    </div>
     <div class="large-1 small-1 columns">
         <button class="small button">@Messages("create")</button>
     </div>
