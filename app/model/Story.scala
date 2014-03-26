@@ -15,19 +15,22 @@ case class Story(val id: Long = -1, val projectId: Long,  val title: String, val
 
 object StoryDAO{
   val simpleParser = {
-      get[Long]("id") ~ get[Long]("project_id") ~ get[String]("title") ~ get[Long]("phase_id") ~ get[String]("description") map {
-      case id~projectId~title~phaseId~description=> Story(id, projectId, title, description, StoryType.bug, Some(phaseId))
+      get[Long]("id") ~ get[Long]("project_id") ~ get[String]("title") ~ get[Long]("phase_id") ~ get[String]("description")~ get[String]("storyType") map {
+      case id~projectId~title~phaseId~description~storyType => Story(id, projectId, title, description, StoryType.usingName(storyType), Some(phaseId))
     }
   }
 
   def create(projectId: Long, story: Story){
-    create(projectId, story.title, story.description)
+    create(projectId, story.title, story.description, story.storyType.toString())
   }
 
-  def create(projectId: Long, title: String, description:String): Option[Story] = {
+  def create(projectId: Long, title: String, description:String, storyType: String): Option[Story] = {
     val id = DB.withConnection{implicit c =>
-        SQL("insert into stories (project_id, title, description) values ({project_id}, {title}, {description})")
-        .on("project_id" -> projectId, "title" -> title, "description" -> description)
+        SQL("insert into stories (project_id, title, description, storyType) values ({project_id}, {title}, {description}, {storyType})")
+        .on("project_id" -> projectId,
+            "title" -> title,
+            "description" -> description,
+            "storyType" -> storyType)
         .executeInsert(scalar[Long].single)
     }
 

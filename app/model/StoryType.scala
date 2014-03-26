@@ -20,10 +20,10 @@ object StoryType extends Enumeration{
 
   type StoryType = MyValue
 
-  val bug = MyValue("bug.gif")
-  val improvement = MyValue("improvement.gif")
-  val feature = MyValue("feature.gif")
-  val task = MyValue("task.gif")
+  val bug = MyValue("bug.svg")
+  val improvement = MyValue("improvement.svg")
+  val feature = MyValue("feature.svg")
+  val task = MyValue("task.svg")
 }
 
 

@@ -14,7 +14,7 @@
                 <div class="row note" id="story_@story.id" draggable="true" ondragstart="drag(event, @story.id)">
                     <div class="large-12 columns">
 
-                       <h6>@story.storyType.url <a href="@routes.StoryController.get(project.id, story.id)">@project.code - @story.id</a></h6>
+                       <h6><img width="17.5" height="25.75" src="/assets/images/@story.storyType.url" /><a href="@routes.StoryController.get(project.id, story.id)">@project.code - @story.id</a></h6>
                        <p>@story.title</p>
                     </div>
                 </div>

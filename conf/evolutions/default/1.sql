@@ -36,6 +36,7 @@ CREATE TABLE stories (
     id integer NOT NULL DEFAULT nextval('stories_id_seq'),
     project_id integer NOT NULL,
     title varchar(255) NOT NULL,
+    storyType varchar(255) NOT NULL,
     description varchar(255) NOT NULL,
     phase_id integer NOT NULL DEFAULT 1,
     PRIMARY KEY (id),

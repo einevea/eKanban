@@ -18,7 +18,6 @@ object StoryController extends Controller {
       formWithErrors => Application.handleError(formWithErrors, views.html.helper2.storyForm(formWithErrors, projectId)),
       story =>{
         StoryDAO.create(projectId, story)
-        printf(StoryType.values.toString())
         Application.handleSuccess(f"Story: $story created")
       }
     )
