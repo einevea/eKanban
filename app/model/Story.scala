@@ -9,7 +9,12 @@ import play.api.Play.current
 /**
  * Created by einevea on 08/03/2014.
  */
-case class Story(val id: Long = -1, val projectId: Long,  val title: String, val description: String, val storyType: StoryType.StoryType, val phaseId: Option[Long] = None){
+case class Story( val id: Long = -1,
+                  val projectId: Long,
+                  val title: String,
+                  val description: String,
+                  val storyType: StoryType.StoryType,
+                  val phaseId: Option[Long] = None){
   def phase: Option[Phase] = {PhaseDAO.read(phaseId.getOrElse(0))}
 }
 
