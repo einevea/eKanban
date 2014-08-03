@@ -59,6 +59,18 @@ insert into phases(name) values ('QA');
 insert into phases(name) values ('deployment');
 insert into phases(name) values ('released');
 
+insert into projects(code, name, description, logoURL) values('T-1','Test Project','A test project to see the functionality of the site','http://www.gravatar.com/avatar/b0c453d8de3950e1c5097f75ea6c5502?r=PG&s=256&default=identicon');
+insert into project_phases(project_id, phase_id, capacity, position) values(1,1,-1,0);
+insert into project_phases(project_id, phase_id, capacity, position) values(1,2,-1,1);
+insert into project_phases(project_id, phase_id, capacity, position) values(1,3,-1,2);
+insert into project_phases(project_id, phase_id, capacity, position) values(1,4,-1,3);
+insert into project_phases(project_id, phase_id, capacity, position) values(1,5,-1,4);
+insert into project_phases(project_id, phase_id, capacity, position) values(1,6,-1,5);
+insert into stories(project_id, title, storyType, description) values(1, 'First Bug', 'bug','There is always a first bug');
+insert into stories(project_id, title, storyType, description, phase_id) values(1, 'First Improvement', 'improvement','And something to improve', 2);
+insert into stories(project_id, title, storyType, description, phase_id) values(1, 'Another Improvement', 'improvement','And something to improve', 1);
+insert into stories(project_id, title, storyType, description, phase_id) values(1, 'Social network integration', 'feature','And of course now they want this',3);
+insert into stories(project_id, title, storyType, description, phase_id) values(1, 'A task', 'task','The food of our minds',5);
 
 # --- !Downs
 DROP TABLE IF EXISTS story_phases;
