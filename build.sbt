@@ -2,6 +2,8 @@ name := "eKanban"
 
 version := "1.0-SNAPSHOT"
 
+resolvers := Seq("typesafe" at "http://repo.typesafe.com/typesafe/releases/")
+
 libraryDependencies ++= Seq(
   jdbc,
   anorm,
