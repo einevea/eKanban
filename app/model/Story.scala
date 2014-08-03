@@ -14,8 +14,8 @@ case class Story( val id: Long = -1,
                   val title: String,
                   val description: String,
                   val storyType: StoryType.StoryType,
-                  val phaseId: Option[Long] = None){
-  def phase: Option[Phase] = {PhaseDAO.read(phaseId.getOrElse(0))}
+                  val currentPhase: Option[Long] = None){
+  def phases: List[Phase] = {PhaseDAO.readAllFromStory(id)}
 }
 
 object StoryDAO{

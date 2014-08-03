@@ -44,6 +44,14 @@ CREATE TABLE stories (
     FOREIGN KEY (phase_id) REFERENCES phases(id) ON DELETE CASCADE
 );
 
+CREATE TABLE story_phases (
+    story_id integer NOT NULL,
+    phase_id integer NOT NULL,
+    FOREIGN KEY (story_id) REFERENCES stories(id) ON DELETE CASCADE,
+    FOREIGN KEY (phase_id) REFERENCES phases(id) ON DELETE CASCADE,
+    UNIQUE(story_id, phase_id)
+);
+
 insert into phases(name) values ('backlog');
 insert into phases(name) values ('definition');
 insert into phases(name) values ('development');
@@ -53,6 +61,7 @@ insert into phases(name) values ('released');
 
 
 # --- !Downs
+DROP TABLE IF EXISTS story_phases;
 DROP TABLE IF EXISTS project_phases;
 DROP TABLE IF EXISTS phases;
 DROP SEQUENCE IF EXISTS phases_id_seq;

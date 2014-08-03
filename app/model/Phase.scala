@@ -83,6 +83,17 @@ object PhaseDAO{
     }
   }
 
+  def readAllFromStory(storyId: Long): List[Phase] = {
+    DB.withConnection{implicit c =>
+      SQL(
+        """
+          select p.id, p.name
+          from phases p join story_phases sp on p.id = sp.phase_id
+          where sp.story_id = {storyId}
+        """).on("storyId" -> storyId).as(fromProjectParser *)
+    }
+  }
+
   def readFromProject(id: Long, projectId: Long): Option[Phase] = {
     DB.withConnection{implicit c =>
       SQL("select * from phases where id = {id}").on("id" -> id).singleOpt(fromProjectParser)
