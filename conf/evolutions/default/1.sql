@@ -18,7 +18,7 @@ CREATE TABLE phases (
     parent integer DEFAULT NULL,
     name varchar(255) NOT NULL UNIQUE,
     PRIMARY KEY (id),
-    FOREIGN KEY (parent) REFERENCES phases(id) ON DELETE CASCADE,
+    FOREIGN KEY (parent) REFERENCES phases(id) ON DELETE CASCADE
 );
 
 CREATE TABLE project_phases (
