@@ -3,5 +3,7 @@ eKanban
 
 A simple web based Kanban board.
 
+[ ![Codeship Status for einevea/eKanban](https://www.codeship.io/projects/48c92ee0-fe97-0131-821c-0ed6d57965cb/status)](https://www.codeship.io/projects/29586)
+
 This file will be packaged with your application, when using `play dist`.
 
