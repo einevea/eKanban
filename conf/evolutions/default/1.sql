@@ -14,7 +14,7 @@ CREATE TABLE projects (
 
 CREATE SEQUENCE phases_id_seq;
 CREATE TABLE phases (
-    id integer NOT NULL DEFAULT nextval('stories_id_seq'),
+    id integer NOT NULL DEFAULT nextval('phases_id_seq'),
     parent integer DEFAULT NULL,
     name varchar(255) NOT NULL UNIQUE,
     PRIMARY KEY (id),
